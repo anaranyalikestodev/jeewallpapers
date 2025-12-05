@@ -1,6 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 @import "tailwindcss";
 
-*{
+* {
   font-family: Outfit;
+}
+
+.course-details-heading-small {
+  @apply text-[26px] leading-[36px];
+}
+
+.course-details-heading-large {
+  @apply text-[36px] leading-[44px];
+}
+
+.home-heading-small {
+  @apply text-[32px] leading-[40px];
+}
+
+.home-heading-large {
+  @apply text-[48px] leading-[56px];
+}
+
+.default{
+  @apply text-[15px] leading-[21px];
 }
