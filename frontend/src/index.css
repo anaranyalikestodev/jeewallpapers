@@ -24,3 +24,7 @@
 .default{
   @apply text-[15px] leading-[21px];
 }
+
+.grid-cols-auto{
+  @apply grid-cols-[repeat(auto-fit,minmax(200px,1fr))];
+}

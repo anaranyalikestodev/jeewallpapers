@@ -1,26 +1,33 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
+import { Link } from "react-router-dom";
 
 export default function CourseCard({ course }) {
-  
-  const {currency}=useContext(AppContext)
-    return (
-    <div>
-      <img src={course.couruseThumbnail} alt="" />
-      <div>
-        <h3>{course.courseTitle}</h3>
-        <p>{course.educator.name}</p>
-        <div>
-          <p>4.5</p>
-          <div>
+  const { currency,calculateRating } = useContext(AppContext);
+  return (
+    <Link
+      to={"/course/" + course._id}
+      onClick={() => scrollTo(0, 0)}
+      className="border border-gray-500/30 pb-6 overflow-hidden rounded-lg"
+    >
+      <img src={course.courseThumbnail} className='w-full' alt="" />
+      <div className="p-3 text-left">
+        <h3 className="text-base font-semibold">{course.courseTitle}</h3>
+        <p className="text-gray-500">{course.educator.name}</p>
+        <div className="flex items-center space-x-2">
+          <p>{calculateRating(course)}</p>
+          <div className="flex">
             {[...Array(5)].map((_, i) => (
-              <img key={i} src={"star.png"} alt='' />
+              <img key={i} src={i<Math.floor(calculateRating(course))?'orange_star.png':'white_star.png'} alt="" className="w-3.5 h-3.5" />
             ))}
           </div>
-          <p>22</p>
+          <p className="text-gray-500">{course.courseRatings.length}</p>
         </div>
-        <p>{currency}{(course.coursePrice*(1-course.discount/100)).toFixed(2)}</p>
+        <p className="text-base font-semibold text-gray-800">
+          {currency}
+          {(course.coursePrice * (1 - course.discount / 100)).toFixed(2)}
+        </p>
       </div>
-    </div>
+    </Link>
   );
 }

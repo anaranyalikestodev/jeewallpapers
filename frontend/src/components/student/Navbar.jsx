@@ -1,25 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
+import { AppContext } from "../../context/AppContext";
 
 export default function Navbar() {
   const isCourseListPage = location.pathname.includes("/course-list");
 
   const { openSignIn } = useClerk();
   const { user } = useUser();
-
+  const {navigate,isEducator}=useContext(AppContext);
   return (
     <div
       className={`flex items-center justify-between px-4 sm:px-10 md:px-14 lg:px-36 border-b border-gray-500 py-4 ${
-        isCourseListPage ? "bg-white" : "bg-cyan-100/70"
+        isCourseListPage ? "bg-white" : "bg-cyan-200/70"
       }`}
     >
-      <img src="logo.png" alt="Logo" className="w-15 lg:w-25" />
+      <img src="logo.png" alt="Logo" className="w-15 lg:w-25"onClick={()=>navigate('/')}/>
       <div className="hidden md:flex items-center gap-5 text-gray-500">
         <div className="flex items-center gap-5">
           {user &&
           <>
-          <button>Become Educator</button> |
+          <button onClick={()=>{navigate('/educator')}}>{isEducator?'Educator Dashboard':'Become Educator'}</button> |
             <Link to="/my-enrollments">My Enrollments</Link>
           </>
             }
@@ -41,7 +42,7 @@ export default function Navbar() {
         <div className="flex items-center gap-5">
           {user &&
           <>
-          <button>Become Educator</button> |
+           <button onClick={()=>{navigate('/educator')}}>{isEducator?'Educator Dashboard':'Become Educator'}</button> |
             <Link to="/my-enrollments">My Enrollments</Link>
           </>
             }
