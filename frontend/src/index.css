@@ -28,3 +28,7 @@
 .grid-cols-auto{
   @apply grid-cols-[repeat(auto-fit,minmax(200px,1fr))];
 }
+
+.h-section-height{
+  @apply h-[500px]
+}

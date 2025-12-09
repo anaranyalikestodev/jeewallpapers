@@ -15,7 +15,7 @@ export default function Navbar() {
         isCourseListPage ? "bg-white" : "bg-cyan-200/70"
       }`}
     >
-      <img src="logo.png" alt="Logo" className="w-15 lg:w-25"onClick={()=>navigate('/')}/>
+      <img src="/logo.png" alt="Logo" className="w-15 lg:w-25"onClick={()=>navigate('/')}/>
       <div className="hidden md:flex items-center gap-5 text-gray-500">
         <div className="flex items-center gap-5">
           {user &&

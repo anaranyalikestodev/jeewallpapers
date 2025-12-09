@@ -1,36 +1,77 @@
-import { createContext, useEffect,useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { dummyCourses } from "../assets/data";
 import { useNavigate } from "react-router-dom";
+import humanizeDuration from "humanize-duration";
+
 export const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
   const currency = import.meta.env.VITE_CURRENCY;
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const [allCourses, setAllCourses] = useState([]);
-  const [isEducator,setisEducator]=useState([]);
+  const [isEducator, setisEducator] = useState([]);
 
   //Fetch All Courses
   const fetchAllCourses = async () => {
     setAllCourses(dummyCourses);
   };
   //Function to calculate avergae rating of course
-  const calculateRating=(course)=>{
-    if (course.courseRatings.length==0){
+  const calculateRating = (course) => {
+    if (course.courseRatings.length == 0) {
       return 0;
     }
-    let totalRating=0
-    course.courseRatings.forEach(rating=>{
-      totalRating+=rating.rating
-    })
-    return totalRating/course.courseRatings.length
-  }
+    let totalRating = 0;
+    course.courseRatings.forEach((rating) => {
+      totalRating += rating.rating;
+    });
+    return totalRating / course.courseRatings.length;
+  };
   useEffect(() => {
     fetchAllCourses();
   }, []);
 
+  //Function to Calculate Course Chapter Time
+  const calculateChapterTime = (chapter) => {
+    let time = 0;
+    chapter.chapterContent.map((lecture) => {
+      time += lecture.lectureDuration;
+    });
+    return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] });
+  };
+
+  //function to calculate course duration
+  const calculateCourseDuration = (course) => {
+    let time = 0;
+    course.courseContent.map((chapter) =>
+      chapter.chapterContent.map((lecture) => (time += lecture.lectureDuration))
+    );
+    return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] });
+  };
+
+  //function to calculate the no of lectures in the course
+  const calculateNoOfLectures = (course) => {
+    let totalLectures = 0;
+    course.courseContent.forEach((chapter) => {
+      if (Array.isArray(chapter.chapterContent)) {
+        totalLectures += chapter.chapterContent.length;
+      }
+    });
+    return totalLectures;
+  };
+
   return (
-    <AppContext.Provider value={{ currency, allCourses,navigate, calculateRating}}>
+    <AppContext.Provider
+      value={{
+        currency,
+        allCourses,
+        navigate,
+        calculateRating,
+        calculateChapterTime,
+        calculateCourseDuration,
+        calculateNoOfLectures
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function Footer() {
+  
   return (
     <footer className="bg-gray-800 md:px-36 text-left w-full mt-10">
       <div className="flex flex-col md:flex-row items-start px-8 md:px-0 justify-center gap-10 md:gap-32 py-10 border-b border-white/30">

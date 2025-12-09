@@ -10,15 +10,15 @@ export default function CourseCard({ course }) {
       onClick={() => scrollTo(0, 0)}
       className="border border-gray-500/30 pb-6 overflow-hidden rounded-lg"
     >
-      <img src={course.courseThumbnail} className='w-full' alt="" />
+      <img src={course.courseThumbnail} className='w-full h-50' alt="" />
       <div className="p-3 text-left">
         <h3 className="text-base font-semibold">{course.courseTitle}</h3>
         <p className="text-gray-500">{course.educator.name}</p>
         <div className="flex items-center space-x-2">
-          <p>{calculateRating(course)}</p>
+          <p>{calculateRating(course).toFixed(2)}</p>
           <div className="flex">
             {[...Array(5)].map((_, i) => (
-              <img key={i} src={i<Math.floor(calculateRating(course))?'orange_star.png':'white_star.png'} alt="" className="w-3.5 h-3.5" />
+              <img key={i} src={i<Math.floor(calculateRating(course))?'/orange_star.png':'/white_star.png'} alt="" className="w-3.5 h-3.5" />
             ))}
           </div>
           <p className="text-gray-500">{course.courseRatings.length}</p>
