@@ -32,3 +32,30 @@
 .h-section-height{
   @apply h-[500px]
 }
+
+@layer base{
+  html{
+    scroll-behavior: smooth;
+  }
+}
+
+::-webkit-scrollbar{
+  display:none;
+}
+
+.rich-text{
+  font-size: 15px;
+  color:#7A7B7D
+}
+
+.rich-text p{
+  margin-bottom: 16px;
+}
+
+.max-w-course-card{
+  @apply max-w-[424px]
+}
+
+.shadow-custom-card{
+  @apply shadow-[0px_4px_15px_2px_rgba(0,0,0,0.1)]
+}
